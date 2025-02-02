@@ -1,0 +1,11 @@
+# docker-compose.yml.template
+services:
+{{OS_NODES}}
+
+networks:
+  opensearch-net:
+    external: true
+    name: opensearch-dev-net
+
+volumes:
+{{OS_VOLUMES}}

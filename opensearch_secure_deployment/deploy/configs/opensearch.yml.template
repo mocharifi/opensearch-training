@@ -1,0 +1,34 @@
+---
+cluster.name: {{CLUSTER_NAME}}
+node.name: {{NODE_NAME}}
+
+path.data: /usr/share/opensearch/data
+path.logs: /usr/share/opensearch/logs
+bootstrap.memory_lock: {{BOOTSTRAP_MEMORY_LOCK}}
+network.host: {{NETWORK_HOST}}
+
+# For discovery (these could be generated dynamically)
+cluster.initial_master_nodes: {{INITIAL_MASTER_NODES}}
+discovery.seed_hosts: {{DISCOVERY_SEED_HOSTS}}
+
+# Security plugin TLS configuration
+plugins.security.ssl.transport.pemcert_filepath: /usr/share/opensearch/config/{{NODE_NAME}}.pem
+plugins.security.ssl.transport.pemkey_filepath: /usr/share/opensearch/config/{{NODE_NAME}}-key.pem
+plugins.security.ssl.transport.pemtrustedcas_filepath: /usr/share/opensearch/config/root-ca.pem
+
+plugins.security.ssl.http.enabled: true
+plugins.security.ssl.http.pemcert_filepath: /usr/share/opensearch/config/{{NODE_NAME}}.pem
+plugins.security.ssl.http.pemkey_filepath: /usr/share/opensearch/config/{{NODE_NAME}}-key.pem
+plugins.security.ssl.http.pemtrustedcas_filepath: /usr/share/opensearch/config/root-ca.pem
+
+plugins.security.allow_default_init_securityindex: true
+plugins.security.authcz.admin_dn:
+  - "CN={{ADMIN_COMMON_NAME}},OU={{CERT_ORG_UNIT}},O={{CERT_ORG}},L={{CERT_LOCALITY}},ST={{CERT_STATE}},C={{CERT_COUNTRY}}"
+
+plugins.security.nodes_dn:
+{{NODES_DN}}
+
+plugins.security.audit.type: internal_opensearch
+plugins.security.enable_snapshot_restore_privilege: true
+plugins.security.check_snapshot_restore_write_privileges: true
+plugins.security.restapi.roles_enabled: ["all_access","security_rest_api_access"]
