@@ -1,0 +1,25 @@
+kafka:
+  type: "web_scraper"
+  module: "scrapers.web_scraper"
+  class: "WebScraper"
+  url: "https://kafka.apache.org/documentation/"
+  content_selector: "right"
+  output_dir: "knowledge_documentation/kafka"
+
+opensearch:
+  type: "github_clone"
+  module: "scrapers.github_scraper"
+  class: "GitHubCloneScraper"
+  repo_url: "https://github.com/opensearch-project/documentation-website.git"
+  branch: "main"
+  output_dir: "knowledge_documentation/opensearch"
+  filter_folders: "^_"  # Keep only folders starting with "_": the only folders that contain OS documentation
+
+kubernetes:
+  type: "github_clone"
+  module: "scrapers.github_scraper"
+  class: "GitHubCloneScraper"
+  repo_url: "https://github.com/kubernetes/website.git"
+  branch: "main"
+  content_path: "content/en/docs/"
+  output_dir: "knowledge_documentation/kubernetes"
